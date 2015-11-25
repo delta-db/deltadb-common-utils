@@ -85,14 +85,14 @@ function startSelenium(callback) {
       console.error('Failed to install selenium');
       process.exit(1);
     }
-    selenium.start(opts, function (/* err, server */) {
+    selenium.start(opts, function ( /* err, server */ ) {
       sauceClient = wd.promiseChainRemote();
       callback();
     });
   });
 }
 
-function startSauceConnect(/* callback */) {
+function startSauceConnect( /* callback */ ) {
 
   // uncomment later for sauce labs
   // var options = {
