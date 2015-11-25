@@ -3,10 +3,6 @@ language: node_js
 node_js:
 - '0.12'
 
-before_script:
-  - npm run jshint
-  - npm run assert-beautified
-
 script: npm run $COMMAND
 
 after_script: cat ./coverage/node/lcov.info ./coverage/browser/lcov.info | ./node_modules/coveralls/bin/coveralls.js
@@ -16,6 +12,7 @@ after_failure:
 
 env:
   matrix:
+  - COMMAND=assert-beautified
   - COMMAND=node-full-test
   - COMMAND=browser-coverage-full-test
   - CLIENT=saucelabs:firefox COMMAND=browser-test
