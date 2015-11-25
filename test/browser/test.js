@@ -58,15 +58,10 @@ function testError(e) {
 }
 
 function postResult(result) {
-  console.log('postResult');
   process.exit(!process.env.PERF && result.failed ? 1 : 0);
 }
 
 function testComplete(result) {
-  console.log('testComplete1');
-  console.log(result);
-  console.log('testComplete2');
-
   sauceClient.quit().then(function () {
     if (sauceConnectProcess) {
       sauceConnectProcess.close(function () {
@@ -83,15 +78,12 @@ function startSelenium(callback) {
   var opts = {
     version: '2.45.0'
   };
-  console.log('startSelenium1');
   selenium.install(opts, function (err) {
-    console.log('startSelenium2');
     if (err) {
       console.error('Failed to install selenium');
       process.exit(1);
     }
     selenium.start(opts, function ( /* err, server */ ) {
-      console.log('startSelenium3');
       sauceClient = wd.promiseChainRemote();
       callback();
     });
@@ -106,14 +98,12 @@ function startSauceConnect(callback) {
     tunnelIdentifier: tunnelId
   };
 
-  console.log('startSauceConnect1');
   sauceConnectLauncher(options, function (err, process) {
     if (err) {
       console.error('Failed to connect to saucelabs');
       console.error(err);
       return process.exit(1);
     }
-    console.log('startSauceConnect2');
 
     sauceConnectProcess = process;
     sauceClient = wd.promiseChainRemote('localhost', 4445, username, accessKey);
@@ -124,8 +114,6 @@ function startSauceConnect(callback) {
 function startTest() {
 
   console.log('Starting', client);
-
-  console.log('tunnelId=', tunnelId);
 
   var opts = {
     browserName: client.browser,
@@ -139,30 +127,22 @@ function startTest() {
     'tunnel-identifier': tunnelId
   };
 
-  console.log('testUrl=', testUrl);
   sauceClient.init(opts).get(testUrl, function () {
 
     /* jshint evil: true */
     var interval = setInterval(function () {
-      console.log('startTest1');
 
       sauceClient.eval('window.results', function (err, results) {
-        console.log('startTest2', err, results);
-        console.log('startTest2a');
 
         if (err) {
-          console.log('startTest3');
           clearInterval(interval);
           testError(err);
         } else if (results.completed || results.failures.length) {
-          console.log('startTest4');
           clearInterval(interval);
           testComplete(results);
         } else {
-          console.log('startTest5');
           console.log('=> ', results);
         }
-        console.log('startTest6');
 
       });
     }, 10 * 1000);
