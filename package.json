@@ -55,6 +55,7 @@
     "mocha": "^2.3.4",
     "mocha-phantomjs": "^4.0.1",
     "sauce-connect-launcher": "^0.13.0",
+    "selenium-standalone": "^4.7.2",
     "watchify": "^3.6.1",
     "wd": "^0.4.0"
   }
