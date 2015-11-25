@@ -1,21 +1,19 @@
 language: node_js
-
 node_js:
-  - "0.12"
-
+- '0.12'
 script: npm run $COMMAND
-
-after_script: "cat ./coverage/node/lcov.info ./coverage/browser/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
-
+after_script: cat ./coverage/node/lcov.info ./coverage/browser/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 after_failure:
-  - cat /home/travis/build/delta-db/deltadb-common-utils/npm-debug.log
-
+- cat /home/travis/build/delta-db/deltadb-common-utils/npm-debug.log
 env:
   matrix:
   - COMMAND=assert-beautified
   - COMMAND=node-full-test
   - COMMAND=browser-coverage-full-test
-
+  - CLIENT=saucelabs:firefox COMMAND=browser-test
+  global:
+  - secure: JrI5MTCx6fr0Qd6xds8UXMPVCZh9ssenszEIvX0OEmcWeTXrQs9QNS1g+Yd5JYLxrYmQed0NSYF16UGyIBB+veoqOz8MStNNXR4PD3nX0Fk1KSGKvAHADr9Vuo72vd4oExTssfp5TawUMw6ljPwmOJ+6McGA+d7hljtElqyDMvUpLNwqU+ciivsoIb9No6pFt5xspNbpBecN49u9wbnsQI2LF+7GsavYaX1VAcFfw7apOe0jcEZPLcuJQ9KUVChgDtniUafbPztF5tPii4SOwtPb5RbAYCpH0OAFrdcqYGgCJzNMVF3c2++LHML2KEdfWEW+sO61ILR8d3MDhlNBDV5anmCk/ZqwxK2z7Za5G/VQT3VB7bsF4sZtEIq6ZHH1a+00/GyAqqOX/SRIhXIa3QDUaE4RlNx95nil8PTvM7LM8DX55RfnWEbbDxVYRtq7KJcd1j9NSptmVTX0u23vMJ51Ax3NpZABNyJXjc6lOhbD4qzT4gRWuJTrZKpzexJD6+RU7HTRqsNQDFhrnknmr+2HpgwOKWddFU9PdNwNf02rx6NPFQNxC6xvpg7Bm9c1/fJKp3kkuW5fmPyuErFUqRETg7CzN4Tv7HpPrzxr2L65BUIZyUlU8sqlrXtIQ7RdgMihEto4Qd3jOkc4k6Z6gG/bjzEy0WsnyoM85Lxlf1k=
+  - secure: KcsE30QLXF1RIuuQjkOLIFPLr6oLhzRa7IQqTWuHQLf3nJCDCn6HtwCBG7CKgGnsq/Jfti2YPSPJZN6AnOiPql3+vgPKWL/oviDcJMK2x6fs7FGcV7/wSSBpCAI1gscruZVjBlNvtN7cD0rdkQyqrHHXxXbRmsQdCjGBJSVigpSNqObLdd1kJX8xG05+ZYtPWPfkEK0wMGBqod/41nHxa+GZIptamgJds4sqhk1erpEzcEnovslEhdf12Yn8VyHW4cj/SdPgjfPlotb31YLWi2AjthsDJAF9GP1U/92P6lzzd/2XpjnobHBB4NYImQhJTwdQyQjpLxncjk5I2vc5/ha2W6ucVUV54Rrom+vwFqKj3EmFbLXbX3nE3tcjiXLb1Lt60BUwqMPV7J1l7p2c9N5Zjth1pP7BzVnY3EkputYmTOc9TBZwoFbGBcgPeIDir6WAauFJuwYU46SagiMa5F0xC1bKiB2zBDwq4GwxV+VTKHieAAI+lXmZEAABeu9aMWw+YW4WGUtGfNw/ADTIaSqMNK6Kr5yvp6BXY1VpDAJ1vgFIAqp4bczqwDJfSnd2+mlbtdHvOdChHvQZbfffg8b4MAzNcvfC4qiQdFH4SZVpZX2czziuuHSFfIMWEvbio57leV5nIRp8V45uhPaNaKVaH7+bBQjnXYfP3x9HUa4=
 branches:
   only:
   - master
