@@ -3,7 +3,7 @@
 'use strict';
 
 var wd = require('wd');
-// var sauceConnectLauncher = require('sauce-connect-launcher'); // uncomment later for sauce labs
+var sauceConnectLauncher = require('sauce-connect-launcher');
 var selenium = require('selenium-standalone');
 var querystring = require('querystring');
 
@@ -11,8 +11,8 @@ var server = require('./server.js');
 
 var testTimeout = 30 * 60 * 1000;
 
-// var username = process.env.SAUCE_USERNAME;
-// var accessKey = process.env.SAUCE_ACCESS_KEY;
+var username = process.env.SAUCE_USERNAME;
+var accessKey = process.env.SAUCE_ACCESS_KEY;
 
 // process.env.CLIENT is a colon seperated list of
 // (saucelabs|selenium):browserName:browserVerion:platform
@@ -58,11 +58,14 @@ function testError(e) {
 }
 
 function postResult(result) {
+console.log('postResult');
   process.exit(!process.env.PERF && result.failed ? 1 : 0);
 }
 
 function testComplete(result) {
+console.log('testComplete1');
   console.log(result);
+console.log('testComplete2');
 
   sauceClient.quit().then(function () {
     if (sauceConnectProcess) {
@@ -80,42 +83,49 @@ function startSelenium(callback) {
   var opts = {
     version: '2.45.0'
   };
+console.log('startSelenium1');
   selenium.install(opts, function (err) {
+console.log('startSelenium2');
     if (err) {
       console.error('Failed to install selenium');
       process.exit(1);
     }
     selenium.start(opts, function ( /* err, server */ ) {
+console.log('startSelenium3');
       sauceClient = wd.promiseChainRemote();
       callback();
     });
   });
 }
 
-function startSauceConnect( /* callback */ ) {
+function startSauceConnect(callback) {
 
-  // uncomment later for sauce labs
-  // var options = {
-  //   username: username,
-  //   accessKey: accessKey,
-  //   tunnelIdentifier: tunnelId
-  // };
-  //
-  // sauceConnectLauncher(options, function (err, process) {
-  //   if (err) {
-  //     console.error('Failed to connect to saucelabs');
-  //     console.error(err);
-  //     return process.exit(1);
-  //   }
-  //   sauceConnectProcess = process;
-  //   sauceClient = wd.promiseChainRemote('localhost', 4445, username, accessKey);
-  //   callback();
-  // });
+  var options = {
+    username: username,
+    accessKey: accessKey,
+    tunnelIdentifier: tunnelId
+  };
+
+console.log('startSauceConnect1');
+  sauceConnectLauncher(options, function (err, process) {
+    if (err) {
+      console.error('Failed to connect to saucelabs');
+      console.error(err);
+      return process.exit(1);
+    }
+console.log('startSauceConnect2');
+
+    sauceConnectProcess = process;
+    sauceClient = wd.promiseChainRemote('localhost', 4445, username, accessKey);
+    callback();
+  });
 }
 
 function startTest() {
 
   console.log('Starting', client);
+
+console.log('tunnelId=', tunnelId);
 
   var opts = {
     browserName: client.browser,
@@ -129,20 +139,31 @@ function startTest() {
     'tunnel-identifier': tunnelId
   };
 
+console.log('testUrl=', testUrl);
   sauceClient.init(opts).get(testUrl, function () {
 
     /* jshint evil: true */
     var interval = setInterval(function () {
+console.log('startTest1');
+
       sauceClient.eval('window.results', function (err, results) {
+console.log('startTest2', err, results);
+console.log('startTest2a');
+
         if (err) {
+console.log('startTest3');
           clearInterval(interval);
           testError(err);
         } else if (results.completed || results.failures.length) {
+console.log('startTest4');
           clearInterval(interval);
           testComplete(results);
         } else {
+console.log('startTest5');
           console.log('=> ', results);
         }
+console.log('startTest6');
+
       });
     }, 10 * 1000);
   });

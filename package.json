@@ -54,6 +54,7 @@
     "jshint": "^2.8.0",
     "mocha": "^2.3.4",
     "mocha-phantomjs": "^4.0.1",
+    "sauce-connect-launcher": "^0.13.0",
     "watchify": "^3.6.1"
   }
 }
