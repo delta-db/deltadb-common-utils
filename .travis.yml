@@ -15,7 +15,7 @@ env:
   - COMMAND=assert-beautified
   - COMMAND=node-full-test
   - COMMAND=browser-coverage-full-test
-  - COMMAND=sauce-test
+  - COMMAND=sauce-tests
 
   # NOTE: there is currently no construct that allows us to encrypt the SAUCE_USERNAME and
   # SAUCE_ACCESS_KEY while also allowing saucelabs testing in forked projects. See
