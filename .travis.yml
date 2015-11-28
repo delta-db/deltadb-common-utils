@@ -18,7 +18,7 @@ env:
 
   - CLIENT=saucelabs:firefox COMMAND=browser-test
   - CLIENT=saucelabs:chrome COMMAND=browser-test
-  - CLIENT=saucelabs:internet explorer COMMAND=browser-test
+  - 'CLIENT=saucelabs:internet explorer' COMMAND=browser-test
   - CLIENT=saucelabs:edge COMMAND=browser-test
   - CLIENT=saucelabs:safari COMMAND=browser-test
 
