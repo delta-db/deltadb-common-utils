@@ -2,7 +2,7 @@
 
 'use strict';
 
-var promise = require('bluebird'),
+var Promise = require('bluebird'),
   spawn = require('child_process').spawn;
 
 var clients = [
