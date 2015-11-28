@@ -27,8 +27,8 @@ env:
   # https://github.com/travis-ci/travis-ci/issues/1946 and
   # https://github.com/angular/angular.js/issues/5596 for more information.
   global:
-    - SAUCE_USERNAME=redgeoff
-    - SAUCE_ACCESS_KEY=07e17c50-eee5-444f-a59e-ceefd6df453a
+    - SAUCE_USERNAME=deltadb-common-utils
+    - SAUCE_ACCESS_KEY=5aa00b81-3d7f-4e7a-ba63-424c5360316d
 
 branches:
   only:
