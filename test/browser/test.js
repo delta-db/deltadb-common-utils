@@ -6,6 +6,7 @@ var wd = require('wd');
 var sauceConnectLauncher = require('sauce-connect-launcher');
 var selenium = require('selenium-standalone');
 var querystring = require('querystring');
+var SauceResultsUpdater = require('./sauce-results-updater');
 
 var server = require('./server.js');
 
@@ -14,9 +15,12 @@ var testTimeout = 30 * 60 * 1000;
 var username = process.env.SAUCE_USERNAME;
 var accessKey = process.env.SAUCE_ACCESS_KEY;
 
+var sauceResultsUpdater = new SauceResultsUpdater(username, accessKey);
+
 // process.env.CLIENT is a colon seperated list of
 // (saucelabs|selenium):browserName:browserVerion:platform
-var tmp = (process.env.CLIENT || 'selenium:firefox').split(':');
+var clientStr = process.env.CLIENT || 'selenium:firefox';
+var tmp = clientStr.split(':');
 var client = {
   runner: tmp[0] || 'selenium',
   browser: tmp[1] || 'firefox',
@@ -30,6 +34,8 @@ var qs = {};
 var sauceClient;
 var sauceConnectProcess;
 var tunnelId = process.env.TRAVIS_JOB_NUMBER || 'tunnel-' + Date.now();
+
+var jobName = tunnelId + '-' + clientStr;
 
 if (client.runner === 'saucelabs') {
   qs.saucelabs = true;
@@ -48,7 +54,10 @@ function testError(e) {
 }
 
 function postResult(result) {
-  process.exit(!process.env.PERF && result.failed ? 1 : 0);
+  var failed = !process.env.PERF && result.failed;
+  sauceResultsUpdater.setPassed(jobName, tunnelId, !failed).then(function () {
+    process.exit(failed ? 1 : 0);
+  });
 }
 
 function testComplete(result) {
@@ -82,21 +91,19 @@ function startSelenium(callback) {
 
 function startSauceConnect(callback) {
 
-  var _process = process;
-
   var options = {
     username: username,
     accessKey: accessKey,
     tunnelIdentifier: tunnelId
   };
 
-  sauceConnectLauncher(options, function (err, process) {
+  sauceConnectLauncher(options, function (err, _sauceConnectProcess) {
     if (err) {
       console.error('Failed to connect to saucelabs');
       console.error(err);
-      _process.exit(1);
+      process.exit(1);
     } else {
-      sauceConnectProcess = process;
+      sauceConnectProcess = _sauceConnectProcess;
       sauceClient = wd.promiseChainRemote('localhost', 4445, username, accessKey);
       callback();
     }
@@ -112,7 +119,7 @@ function startTest() {
     version: client.version,
     platform: client.platform,
     tunnelTimeout: testTimeout,
-    name: client.browser + ' - ' + tunnelId,
+    name: jobName,
     'max-duration': 60 * 30,
     'command-timeout': 599,
     'idle-timeout': 599,
