@@ -7,7 +7,12 @@ var sauceConnectLauncher = require('sauce-connect-launcher');
 var selenium = require('selenium-standalone');
 var querystring = require('querystring');
 
+console.log('1');
+
 var server = require('./server.js');
+
+console.log('2');
+
 
 var testTimeout = 30 * 60 * 1000;
 
@@ -39,6 +44,9 @@ if (process.env.GREP) {
 }
 testUrl += '?';
 testUrl += querystring.stringify(qs);
+
+console.log('3');
+
 
 if (process.env.TRAVIS &&
   client.browser !== 'firefox' &&
