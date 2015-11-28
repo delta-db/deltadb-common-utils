@@ -2,7 +2,7 @@
 
 'use strict';
 
-Uncomment for debugging
+// Uncomment for debugging
 (function() {
     var childProcess = require("child_process");
     var oldSpawn = childProcess.spawn;
