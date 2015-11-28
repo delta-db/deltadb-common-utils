@@ -19,12 +19,11 @@ var run = function (client) {
 
     var cmd = './test/browser/test.js';
 
+    // Add client env var
+    process.env.CLIENT = 'saucelabs:' + client;
+
     var options = {
-      env: {
-        CLIENT: 'saucelabs:' + client,
-        SAUCE_USERNAME: process.env.SAUCE_USERNAME,
-        SAUCE_ACCESS_KEY: process.env.SAUCE_ACCESS_KEY
-      }
+      env: process.env
     };
 
     console.log(cmd, options);
