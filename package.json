@@ -28,6 +28,7 @@
     "browser-test-firefox": "npm run jshint && CLIENT=selenium:firefox npm run browser-test",
     "browser-test-chrome": "npm run jshint && CLIENT=selenium:chrome npm run browser-test",
     "browser-test-phantomjs": "npm run jshint && CLIENT=selenium:phantomjs npm run browser-test",
+    "sauce-test": "./test/browser/sauce-test.js",
     "browser-coverage-build": "browserify -t [ browserify-istanbul --ignore **/node_modules/** ] ./test/index.js -o test/browser-coverage/bundle.js -d",
     "browser-coverage-server": "./test/browser-coverage/server.js",
     "browser-coverage-test": "./test/browser-coverage/test.js",

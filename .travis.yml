@@ -15,12 +15,7 @@ env:
   - COMMAND=assert-beautified
   - COMMAND=node-full-test
   - COMMAND=browser-coverage-full-test
-
-  - CLIENT=saucelabs:firefox COMMAND=browser-test
-  - CLIENT=saucelabs:chrome COMMAND=browser-test
-  - CLIENT="saucelabs:internet explorer" COMMAND=browser-test
-  - CLIENT=saucelabs:edge COMMAND=browser-test
-  - CLIENT=saucelabs:safari COMMAND=browser-test
+  - COMMAND=sauce-test
 
   # NOTE: there is currently no construct that allows us to encrypt the SAUCE_USERNAME and
   # SAUCE_ACCESS_KEY while also allowing saucelabs testing in forked projects. See

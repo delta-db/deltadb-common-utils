@@ -92,6 +92,8 @@ function startSelenium(callback) {
 
 function startSauceConnect(callback) {
 
+  var _process = process;
+
   var options = {
     username: username,
     accessKey: accessKey,
@@ -102,12 +104,12 @@ function startSauceConnect(callback) {
     if (err) {
       console.error('Failed to connect to saucelabs');
       console.error(err);
-      return process.exit(1);
+      _process.exit(1);
+    } else {
+      sauceConnectProcess = process;
+      sauceClient = wd.promiseChainRemote('localhost', 4445, username, accessKey);
+      callback();
     }
-
-    sauceConnectProcess = process;
-    sauceClient = wd.promiseChainRemote('localhost', 4445, username, accessKey);
-    callback();
   });
 }
 
