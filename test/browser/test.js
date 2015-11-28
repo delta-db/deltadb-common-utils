@@ -35,7 +35,8 @@ var sauceClient;
 var sauceConnectProcess;
 var tunnelId = process.env.TRAVIS_JOB_NUMBER || 'tunnel-' + Date.now();
 
-var jobName = tunnelId + '-' + clientStr;
+var jobName = (process.env.TRAVIS_BUILD_NUMBER ? process.env.TRAVIS_BUILD_NUMBER : Date.now()) +
+  '-' + clientStr;
 
 if (client.runner === 'saucelabs') {
   qs.saucelabs = true;
