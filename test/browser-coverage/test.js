@@ -38,7 +38,7 @@ child.stdout.on('data', function (data) {
   console.log(data.toString()); // echo output, including what could be errors
 });
 
-child.stderr.on('data', function(data) {
+child.stderr.on('data', function (data) {
   console.error(data.toString());
 });
 

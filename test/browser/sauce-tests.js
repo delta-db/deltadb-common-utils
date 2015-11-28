@@ -26,7 +26,8 @@ var run = function (client) {
       env: process.env
     };
 
-    console.log(cmd, options);
+    // console.log(cmd, options);
+    console.log(cmd, process.env.CLIENT);
 
     var child = spawn(cmd, options);
 
@@ -34,7 +35,7 @@ var run = function (client) {
       console.log(data.toString()); // echo output, including what could be errors
     });
 
-    child.stderr.on('data', function(data) {
+    child.stderr.on('data', function (data) {
       console.error(data.toString());
     });
 
