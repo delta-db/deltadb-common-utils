@@ -17,9 +17,13 @@ env:
   - COMMAND=browser-coverage-full-test
   - CLIENT=saucelabs:firefox COMMAND=browser-test
 
+  # NOTE: there is currently no construct that allows us to encrypt the SAUCE_USERNAME and
+  # SAUCE_ACCESS_KEY while also allowing saucelabs testing in forked projects. See
+  # https://github.com/travis-ci/travis-ci/issues/1946 and
+  # https://github.com/angular/angular.js/issues/5596 for more information.
   global:
-  - secure: IcPwmDH1hOph44jjCk/5TYBu1Se/KWjTkfSZR20tB0G8BU3wWAGDcNdsVSGry3mMBXQUNYOcoJqlrI+/lzALm6O6onkWfMoCZK/bEUlvUesXZMYpMZa+pZFJfptAXvCWrMsTTrhaof16EZ/8xdP14UHOMadCnZiBUqFnpYt9GO3Fe6+ClzLYHsR5xlkRY+/8FSscuhMKRvF2kO47s52Egb22QNSCyME+LRFopWZmYcSa3Gt5T1TXyFK5ZdurJ8BVQn7KB5GrFg+v9YG42NhH7/iyNFEmf8gHH+QhmtYQiu12MGJpwShRJCalFsD1e0hTU8l8VBoVMlILHQnPH8uyT5Q6U4KUPrOSuxoOLdQNtzEJJyPUPQOz4ruESiSenXmXOMC+dZ0or0VkMtdH47Xb9MA6WMD7CHBRHZlWJHvATFXkj/Q7v0mNy86jeZvbGm6IwI9NOFaBdTykJQEhh2HJfpGUPSpzNCtZMX5OmUAh4bEIB/C5nApNGvKFLzhaYg8UE2ULT1xmpH9HInmwAjamAUPECQPHC1kBhPd+81X7V6yJDxXpzAmCsbNN773AToOpZ5kkysvQif4c415LmM1eAdCvxUYDcpNkCJZHF/dMSYzJPNepOvyzjT2c/ozp8zS4hPWS+Y4mFXFWBXn7yaoK96UqeoVdeCSnETxPU2q7G9g=
-  - secure: TqucRh8lioG2hOuV2RewOIfsoEfi6R9d5bFN90SLzF8DYa4CmmUMy/AvtaUQfc9TVENqszOUxmpI4N9+UvHhRw1tsKLZZA9QHb+x0zVQCV6XiNwMeO6xEBYVtn7nX8v0y5/YsIT+Kwi3zSHnX5BVbah25S1qavQg9z98Blf+AWvKliOtcn1b0Zv4G8AtoxIEvNUdA+ghWduNseHMmvVQ2yoO3u4YESUOz/xUwlFEEDZFxvHBCgTD9VmFOsrKDtdNTCFGii+krbK9+ShgN8ZGXIXss/FOZLouMcM6DXdtY8XLbCgD4VKc8J3V+vwg5JpEIGsasIVicseJ6TMvg/Kph0V5NDOWDQ0+k+pnJRf4o6lQrsaUKsHm49vvfHY75ziGdhlbEDzqnpdnH1kzyLBOqPENjmY6OMmduaEA137xJv1pRyKNLV3maImrXSqt/8AKgtPUNeHfCAMykoYqowZLIoLxuhxfrOYHFQxqhb2U4/K0k5drYQ86qk+LJdqIJoPxj0sq9Mya2XW9KUkHHARU9HBZ/mbgoyb7yNKmc/SbSkf78vJRmSXpSXl7RM7AS+MFRUqM8atljzYImmYKAat2KIXWYudyWiaUvRc//ojHPIE2nKJqHbFo5yN6xwNPgPyzqVLa7ZYAY2yopg/UAkcRpPQXQSp6sjizGcT8YZozhH0=
+    - SAUCE_USERNAME=redgeoff
+    - SAUCE_ACCESS_KEY=07e17c50-eee5-444f-a59e-ceefd6df453a
 
 branches:
   only:
