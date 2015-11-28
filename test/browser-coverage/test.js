@@ -38,6 +38,14 @@ child.stdout.on('data', function (data) {
   console.log(data.toString()); // echo output, including what could be errors
 });
 
+child.stderr.on('data', function (data) {
+  console.error(data.toString());
+});
+
+child.on('error', function (err) {
+  console.error(err);
+});
+
 child.on('close', function (code) {
   console.log('Mocha process exited with code ' + code);
   if (code > 0) {

@@ -15,15 +15,21 @@ env:
   - COMMAND=assert-beautified
   - COMMAND=node-full-test
   - COMMAND=browser-coverage-full-test
-  - CLIENT=saucelabs:firefox COMMAND=browser-test
+
+  # Saucelabs tests
+  - CLIENT="saucelabs:firefox" COMMAND=browser-test
+  - CLIENT="saucelabs:chrome" COMMAND=browser-test
+  - CLIENT="saucelabs:internet explorer" COMMAND=browser-test
+  - CLIENT="saucelabs:microsoftedge" COMMAND=browser-test
+  - CLIENT="saucelabs:safari" COMMAND=browser-test
 
   # NOTE: there is currently no construct that allows us to encrypt the SAUCE_USERNAME and
   # SAUCE_ACCESS_KEY while also allowing saucelabs testing in forked projects. See
   # https://github.com/travis-ci/travis-ci/issues/1946 and
   # https://github.com/angular/angular.js/issues/5596 for more information.
   global:
-    - SAUCE_USERNAME=redgeoff
-    - SAUCE_ACCESS_KEY=07e17c50-eee5-444f-a59e-ceefd6df453a
+    - SAUCE_USERNAME=deltadb-common-utils
+    - SAUCE_ACCESS_KEY=5aa00b81-3d7f-4e7a-ba63-424c5360316d
 
 branches:
   only:

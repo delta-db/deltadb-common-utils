@@ -40,16 +40,6 @@ if (process.env.GREP) {
 testUrl += '?';
 testUrl += querystring.stringify(qs);
 
-if (process.env.TRAVIS &&
-  client.browser !== 'firefox' &&
-  client.browser !== 'phantomjs' &&
-  client.browser !== 'chrome' &&
-  process.env.TRAVIS_SECURE_ENV_VARS === 'false') {
-  console.error('Not running test, cannot connect to saucelabs');
-  process.exit(1);
-  return;
-}
-
 function testError(e) {
   console.error(e);
   console.error('Doh, tests failed');
@@ -92,6 +82,8 @@ function startSelenium(callback) {
 
 function startSauceConnect(callback) {
 
+  var _process = process;
+
   var options = {
     username: username,
     accessKey: accessKey,
@@ -102,12 +94,12 @@ function startSauceConnect(callback) {
     if (err) {
       console.error('Failed to connect to saucelabs');
       console.error(err);
-      return process.exit(1);
+      _process.exit(1);
+    } else {
+      sauceConnectProcess = process;
+      sauceClient = wd.promiseChainRemote('localhost', 4445, username, accessKey);
+      callback();
     }
-
-    sauceConnectProcess = process;
-    sauceClient = wd.promiseChainRemote('localhost', 4445, username, accessKey);
-    callback();
   });
 }
 
