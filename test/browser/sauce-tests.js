@@ -6,8 +6,8 @@ var Promise = require('bluebird'),
   spawn = require('child_process').spawn;
 
 var clients = [
-  'firefox',
-  'chrome',
+  // 'firefox',
+  // 'chrome',
   'internet explorer',
   'microsoftedge',
   'safari'
@@ -27,7 +27,7 @@ var run = function (client) {
     };
 
     // console.log(cmd, options);
-    console.log(cmd, process.env.CLIENT);
+    console.log('CLIENT=' + process.env.CLIENT, cmd);
 
     var child = spawn(cmd, options);
 
