@@ -35,17 +35,21 @@ var run = function (client) {
       console.log(data.toString()); // echo output, including what could be errors
     });
 
-    child.on('close', function (code) {
-      console.log('Process exited with code ' + code + "\n\n");
-      if (code > 0) {
-        reject(new Error(code));
-      } else {
-        resolve(code);
-      }
+    child.stderr.on('data', function(data) {
+      console.error(data.toString());
     });
 
     child.on('error', function (err) {
       reject(err);
+    });
+
+    child.on('exit', function (code) {
+      console.log('Process exited with code ' + code + "\n\n");
+      if (code === 0) {
+        resolve();
+      } else {
+        reject(new Error(code));
+      }
     });
 
   });
