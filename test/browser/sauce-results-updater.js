@@ -53,7 +53,10 @@ Sauce.prototype.updateJob = function (id, data) {
 Sauce.prototype.setPassed = function (jobName, build, passed) {
   var self = this;
   return self.findJob(jobName).then(function (job) {
-    return self.updateJob(job.id, { build: build, passed: passed });
+    return self.updateJob(job.id, {
+      build: build,
+      passed: passed
+    });
   });
 };
 
