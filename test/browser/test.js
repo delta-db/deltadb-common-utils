@@ -35,7 +35,7 @@ var sauceClient;
 var sauceConnectProcess;
 var tunnelId = process.env.TRAVIS_JOB_NUMBER || 'tunnel-' + Date.now();
 
-var jobName = tunnelId;
+var jobName = tunnelId + '-' + clientStr;
 
 var build = (process.env.TRAVIS_COMMIT ? process.env.TRAVIS_COMMIT : Date.now());
 
