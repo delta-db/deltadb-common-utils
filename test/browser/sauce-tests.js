@@ -65,6 +65,6 @@ clients.forEach(function (client) {
 chain.then(function () {
   process.exit(0); // success
 }).catch(function (err) {
-  console.log(err);
+  console.log('Fatal Error: ', err);
   process.exit(1); // failure
 });
