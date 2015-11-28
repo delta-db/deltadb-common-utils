@@ -36,7 +36,7 @@ var run = function (client) {
     });
 
     child.on('close', function (code) {
-      console.log('Mocha process exited with code ' + code + "\n\n");
+      console.log('Process exited with code ' + code + "\n\n");
       if (code > 0) {
         reject(new Error(code));
       } else {

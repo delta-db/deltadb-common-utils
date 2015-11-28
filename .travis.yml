@@ -17,6 +17,8 @@ env:
   - COMMAND=browser-coverage-full-test
   - COMMAND=sauce-tests
 
+  - CLIENT=saucelabs:firefox COMMAND=browser-test
+
   # NOTE: there is currently no construct that allows us to encrypt the SAUCE_USERNAME and
   # SAUCE_ACCESS_KEY while also allowing saucelabs testing in forked projects. See
   # https://github.com/travis-ci/travis-ci/issues/1946 and
