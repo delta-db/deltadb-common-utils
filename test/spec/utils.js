@@ -1,7 +1,7 @@
 'use strict';
 
 var utils = require('../../scripts/utils'),
-  testUtils = require('../utils'),
+  testUtils = require('../../scripts/test-utils'),
   // bcrypt = require('bcrypt'); // TODO: use for server as faster?
   bcrypt = require('bcryptjs'),
   EventEmitter = require('events').EventEmitter,

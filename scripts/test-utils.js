@@ -1,16 +1,15 @@
 'use strict';
 
-// NOTE: this code is duplicated in deltadb-common-test-utils but we include it here so that there
-// is not a circular dependency between common-utils and common-test-utils.
+var NeverError = require('./never-error');
 
 var Utils = function () {};
 
-Utils.prototype.never = function (msg) {
-  throw new Error(typeof msg === 'undefined' ? 'must never execute' : msg);
+Utils.prototype.never = function () {
+  throw new NeverError('must never execute');
 };
 
 Utils.prototype._errShouldEql = function (expErr, actErr) {
-  if (actErr.message === 'must never execute') { // TODO: define & use NeverException instead
+  if (actErr instanceof NeverError) {
     throw new Error("didn't throw err");
   }
 
@@ -33,6 +32,15 @@ Utils.prototype.shouldThrow = function (fun, err) {
   }).catch(function (_err) {
     self._errShouldEql(err, _err);
   });
+};
+
+Utils.prototype.shouldNonPromiseThrow = function (fun, err) {
+  try {
+    fun();
+    this.never();
+  } catch (_err) {
+    this._errShouldEql(err, _err);
+  }
 };
 
 module.exports = new Utils();
