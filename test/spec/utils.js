@@ -221,7 +221,8 @@ describe('utils', function () {
     var bar = utils.promisify(foo.bar, foo);
 
     return bar(7).then(function (y) {
-      y.should.eql(7);
+      // y.should.eql(7); // doesn't work in IE 9
+      (y === 7).should.eql(true);
     }).then(function () {
       return testUtils.shouldThrow(function () {
         return bar(6);
@@ -247,8 +248,12 @@ describe('utils', function () {
     var bar = utils.promisify(foo.bar, foo);
 
     return bar(7).then(function (args) {
-      args[0].should.eql(7);
-      args[1].should.eql(8);
+      // Doesn't work in IE 9:
+      // args[0].should.eql(7);
+      // args[1].should.eql(8);
+
+      (args[0] === 7).should.eql(true);
+      (args[1] === 8).should.eql(true);
     }).then(function () {
       return testUtils.shouldThrow(function () {
         return bar(6);
