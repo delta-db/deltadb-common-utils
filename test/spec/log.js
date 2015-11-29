@@ -1,6 +1,6 @@
 'use strict';
 
-var Log = require('../../scripts/utils').Log;
+var Log = require('../../scripts/log');
 
 describe('log', function () {
 

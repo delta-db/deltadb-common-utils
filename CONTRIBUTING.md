@@ -36,7 +36,12 @@ Publishing to npm
 	npm publish
 
 
-Run single test
+Run all local tests
+
+	npm run test
+
+
+Run single node test
 ---
 
 	node_modules/mocha/bin/mocha -g regex test
