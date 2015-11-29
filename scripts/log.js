@@ -1,5 +1,16 @@
 'use strict';
 
+// For IE 9
+/* istanbul ignore next */
+if (global.window) {
+  if (!window.console) {
+    window.console = {};
+  }
+  if (!console.log) {
+    console.log = function () {};
+  }
+}
+
 var Log = function () {
   this._stream = null;
   this._console = false;

@@ -8,15 +8,7 @@ describe('log', function () {
     consoleLogCount = 0,
     log = null;
 
-  // For IE 9
-  if (!console) {
-    var console = {
-      log: function () {}
-    };
-  }
-
   before(function () {
-    polyfill();
     stockConsoleLog = console.log;
     console.log = function () {
       if (!/ignore/.test(arguments[0])) { // don't output our test
