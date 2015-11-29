@@ -54,3 +54,8 @@ Debugging Tests Using Node Inspector
     $ node-inspector # leave this running in this window
     Use *Chrome* to visit http://127.0.0.1:8080/?ws=127.0.0.1:8080&port=5858
     $ mocha -g regex test/index.js --debug-brk
+
+
+Run Saucelabs Tests In a Specific Browser
+
+    $ CLIENT="saucelabs:internet explorer:9" SAUCE_USERNAME=deltadb-common-utils SAUCE_ACCESS_KEY=5aa00b81-3d7f-4e7a-ba63-424c5360316d npm run browser-test

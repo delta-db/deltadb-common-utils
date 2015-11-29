@@ -5,6 +5,12 @@ var uuid = require('node-uuid'),
   // bcrypt = require('bcrypt'); // TODO: use for server as faster?
   bcrypt = require('bcryptjs');
 
+// IE 9/10?
+var getRandomValues = require('./get-random-values');
+if (!global.crypto || (global.window && !window.crypto)) {
+  bcrypt.setRandomFallback(getRandomValues);
+}
+
 var Utils = function () {
   this._bcrypt = bcrypt; // only for unit testing
 };

@@ -135,14 +135,14 @@ function startTest() {
 
       sauceClient.eval('window.results', function (err, results) {
 
+        console.log('=> ', results);
+
         if (err) {
           clearInterval(interval);
           testError(err);
         } else if (results.completed || results.failures.length) {
           clearInterval(interval);
           testComplete(results);
-        } else {
-          console.log('=> ', results);
         }
 
       });
