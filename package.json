@@ -18,8 +18,8 @@
     "url": "https://github.com/delta-db/deltadb-common-utils/issues"
   },
   "scripts": {
-    "assert-beautified": "beautify-proj -i test -c beautify.json && beautify-proj -i scripts -c beautify.json",
-    "beautify": "beautify-proj -i test -o . -c beautify.json && beautify-proj -i scripts -o . -c beautify.json",
+    "assert-beautified": "beautify-proj -i test -c beautify.json -e bundle.js && beautify-proj -i scripts -c beautify.json",
+    "beautify": "beautify-proj -i test -o . -c beautify.json -e bundle.js && beautify-proj -i scripts -o . -c beautify.json",
     "jshint": "jshint -c .jshintrc *.js test scripts",
     "node-test": "istanbul test --dir coverage/node ./node_modules/mocha/bin/_mocha test/index.js",
     "node-full-test": "npm run jshint && npm run node-test --coverage",
@@ -43,7 +43,7 @@
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {
-    "beautify-proj": "0.0.3",
+    "beautify-proj": "0.0.4",
     "browserify": "^12.0.1",
     "browserify-istanbul": "^0.2.1",
     "chai": "^3.4.1",
