@@ -1,6 +1,6 @@
 'use strict';
 
-var Collection = require('../../scripts').Collection;
+var Collection = require('../../scripts/collection');
 
 describe('collection', function () {
 

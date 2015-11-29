@@ -7,6 +7,7 @@ var uuid = require('node-uuid'),
 
 // IE 9/10?
 var getRandomValues = require('./get-random-values');
+/* istanbul ignore next */
 if (!global.crypto || (global.window && !window.crypto)) {
   bcrypt.setRandomFallback(getRandomValues);
 }

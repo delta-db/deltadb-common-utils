@@ -1,7 +1,6 @@
 'use strict';
 
-var utils = require('../../scripts'),
-  Dictionary = utils.Dictionary,
+var Dictionary = require('../../scripts/dictionary'),
   chai = require('chai'),
   expect = chai.expect;
 

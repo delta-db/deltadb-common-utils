@@ -10,6 +10,6 @@ function getRandomValues(bytes) {
   for (var i = 0; i < bytes.length; i++) {
     bytes[i] = isaac.rand();
   }
-};
+}
 
 module.exports = getRandomValues;
