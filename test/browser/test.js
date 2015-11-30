@@ -111,8 +111,10 @@ function startSauceConnect(callback) {
         console.log('Max retries reached, exiting');
         process.exit(1);
       } else {
-        console.log('Retry', retries);
-        startSauceConnect(callback);
+        console.log('Retry', retries, '...');
+        setTimeout(function () {
+          startSauceConnect(callback);
+        }, MS_BEFORE_RETRY);
       }
 
     } else {
