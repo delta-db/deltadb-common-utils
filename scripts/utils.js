@@ -160,6 +160,14 @@ Utils.prototype.isDefined = function (val) {
   return typeof val !== 'undefined';
 };
 
+Utils.prototype.timeout = function (ms) {
+  return new Promise(function (resolve) {
+    setTimeout(function () {
+      resolve();
+    }, ms);
+  });
+};
+
 // Executes promise and then resolves after event emitted once
 Utils.prototype.doAndOnce = function (promise, emitter, evnt) {
   var once = this.once(emitter, evnt);
