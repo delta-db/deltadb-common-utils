@@ -13,8 +13,8 @@ var server = require('./server.js');
 var testTimeout = 30 * 60 * 1000;
 
 var retries = 0;
-var MAX_RETRIES = 5;
-var MS_BEFORE_RETRY = 20000;
+var MAX_RETRIES = 10;
+var MS_BEFORE_RETRY = 60000;
 
 var username = process.env.SAUCE_USERNAME;
 var accessKey = process.env.SAUCE_ACCESS_KEY;
