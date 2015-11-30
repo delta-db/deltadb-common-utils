@@ -5,11 +5,17 @@ var uuid = require('node-uuid'),
   // bcrypt = require('bcrypt'); // TODO: use for server as faster?
   bcrypt = require('bcryptjs');
 
-// IE 9/10?
-var getRandomValues = require('./get-random-values');
+// NOTE: IE 9/10 doesn't support crypto.getRandomValues so we use isaac to polyfill
+var isaac = require('isaac');
 /* istanbul ignore next */
 if (!global.crypto || (global.window && !window.crypto)) {
-  bcrypt.setRandomFallback(getRandomValues);
+  bcrypt.setRandomFallback(function (len) {
+    var values = [];
+    for (var i = 0; i < len; i++) {
+      values[i] = isaac.rand();
+    }
+    return values;
+  });
 }
 
 var Utils = function () {
@@ -197,6 +203,8 @@ Utils.prototype.toArgsArray = function (argsObj) {
   return Array.prototype.slice.call(argsObj);
 };
 
+// Include our own implementation of promisify so that we can move away from bluebird once Promises
+// become a standard
 Utils.prototype.promisify = function (fn, thisArg) {
   var self = this;
   return function () {
