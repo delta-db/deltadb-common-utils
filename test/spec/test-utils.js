@@ -2,7 +2,8 @@
 
 var testUtils = require('../../scripts/test-utils'),
   NeverError = require('../../scripts/never-error'),
-  Promise = require('bluebird');
+  Promise = require('bluebird'),
+  EventEmitter = require('events').EventEmitter;
 
 describe('test-utils', function () {
 
@@ -47,6 +48,54 @@ describe('test-utils', function () {
       err = _err;
     }
     (err === null).should.eql(false);
+  });
+
+  it('should do and once', function () {
+    var emitter = new EventEmitter();
+
+    // Nothing should be thrown as event is emitted
+    return testUtils.shouldDoAndOnce(function () {
+      emitter.emit('ping');
+      return Promise.resolve();
+    }, emitter, 'ping');
+  });
+
+  it('should do and once should report missing event', function () {
+    var emitter = new EventEmitter();
+
+    // No event is emitted so an error is thrown
+    return testUtils.shouldThrow(function () {
+      return testUtils.shouldDoAndOnce(function () {
+        return Promise.resolve();
+      }, emitter, 'ping').catch(function (err) {
+        // "Convert" to regular error as NeverError is handled differently
+        throw new Error(err.message);
+      });
+    });
+  });
+
+  it('should do and not once', function () {
+    var emitter = new EventEmitter();
+
+    // Nothing should be thrown as event is not emitted
+    return testUtils.shouldDoAndNotOnce(function () {
+      return Promise.resolve();
+    }, emitter, 'ping');
+  });
+
+  it('should do and not once should report event', function () {
+    var emitter = new EventEmitter();
+
+    // Event is emitted so an error is thrown
+    return testUtils.shouldThrow(function () {
+      return testUtils.shouldDoAndNotOnce(function () {
+        emitter.emit('ping');
+        return Promise.resolve();
+      }, emitter, 'ping').catch(function (err) {
+        // "Convert" to regular error as NeverError is handled differently
+        throw new Error(err.message);
+      });
+    });
   });
 
 });
