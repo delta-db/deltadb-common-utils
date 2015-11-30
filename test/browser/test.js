@@ -12,6 +12,10 @@ var server = require('./server.js');
 
 var testTimeout = 30 * 60 * 1000;
 
+var retries = 0;
+var MAX_RETRIES = 5;
+var MS_BEFORE_RETRY = 20000;
+
 var username = process.env.SAUCE_USERNAME;
 var accessKey = process.env.SAUCE_ACCESS_KEY;
 
@@ -101,9 +105,18 @@ function startSauceConnect(callback) {
 
   sauceConnectLauncher(options, function (err, _sauceConnectProcess) {
     if (err) {
-      console.error('Failed to connect to saucelabs');
-      console.error(err);
-      process.exit(1);
+      console.error('Failed to connect to saucelabs, err=', err);
+
+      if (++retries > MAX_RETRIES) {
+        console.log('Max retries reached, exiting');
+        process.exit(1);
+      } else {
+        console.log('Retry', retries, '...');
+        setTimeout(function () {
+          startSauceConnect(callback);
+        }, MS_BEFORE_RETRY);
+      }
+
     } else {
       sauceConnectProcess = _sauceConnectProcess;
       sauceClient = wd.promiseChainRemote('localhost', 4445, username, accessKey);
