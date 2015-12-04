@@ -1,7 +1,7 @@
 'use strict';
 
 var testUtils = require('../../scripts/test-utils'),
-  NeverError = require('../../scripts/never-error'),
+  NeverError = require('../../scripts/errors/never-error'),
   Promise = require('bluebird'),
   EventEmitter = require('events').EventEmitter;
 

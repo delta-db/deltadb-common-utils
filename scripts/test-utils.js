@@ -1,6 +1,6 @@
 'use strict';
 
-var NeverError = require('./never-error'),
+var NeverError = require('./errors/never-error'),
   utils = require('./utils');
 
 var Utils = function () {};
