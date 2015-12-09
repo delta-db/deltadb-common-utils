@@ -1,4 +1,5 @@
-coverage/*
+coverage
+dist
 node_modules
 test/browser/bundle.js
 test/browser-coverage/bundle.js
