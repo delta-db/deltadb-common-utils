@@ -1,7 +1,8 @@
 'use strict';
 
 var NeverError = require('./errors/never-error'),
-  utils = require('./utils');
+  utils = require('./utils'),
+  Promise = require('bluebird');
 
 var Utils = function () {};
 
@@ -52,9 +53,9 @@ Utils.prototype.shouldDoAndOnce = function (promiseFactory, emitter, evnt) {
   var self = this,
     err = true;
 
-  return new Promise(function (resolve) {
+  return new Promise(function (resolve, reject) {
 
-    var doOncePromise = utils.doAndOnce(promiseFactory, emitter, evnt).then(function (args) {
+    utils.doAndOnce(promiseFactory, emitter, evnt).then(function (args) {
       err = false;
 
       // We've received the event so resolve now instead of waiting for the timeout
@@ -63,7 +64,7 @@ Utils.prototype.shouldDoAndOnce = function (promiseFactory, emitter, evnt) {
 
     utils.timeout(self.WAIT_MS).then(function () {
       if (err) {
-        self.never('should have emitted event ' + evnt);
+        reject(new NeverError('should have emitted event ' + evnt));
       }
     });
 
