@@ -15,7 +15,7 @@ Utils.prototype.never = function (msg) {
 };
 
 Utils.prototype._errShouldEql = function (expErr, actErr) {
-  if (actErr instanceof NeverError) {
+  if (utils.errorInstanceOf(actErr, 'NeverError')) {
     throw new Error("didn't throw err");
   }
 
