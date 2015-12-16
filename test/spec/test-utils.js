@@ -1,6 +1,7 @@
 'use strict';
 
 var testUtils = require('../../scripts/test-utils'),
+  utils = require('../../scripts'),
   NeverError = require('../../scripts/errors/never-error'),
   Promise = require('bluebird'),
   EventEmitter = require('events').EventEmitter;
@@ -14,7 +15,7 @@ describe('test-utils', function () {
     } catch (_err) {
       err = _err;
     }
-    (err instanceof NeverError).should.eql(true);
+    utils.errorInstanceOf(err, 'NeverError').should.eql(true);
   });
 
   it('error should equal', function () {

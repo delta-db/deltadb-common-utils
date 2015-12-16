@@ -237,4 +237,12 @@ Utils.prototype.promisify = function (fn, thisArg) {
   };
 };
 
+Utils.prototype.errorInstanceOf = function (err, name) {
+  // NOTE: we analyze the error name instead of using instanceof as our errors may be located in
+  // different repos and therefore, we may have different versions of these errors, which will lead
+  // to instanceof tests failing.
+  //
+  return err.name === name;
+};
+
 module.exports = new Utils();
