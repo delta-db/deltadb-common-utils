@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.3.0",
-    "bluebird": "^3.0.5",
+    "bluebird": "^3.4.3",
     "isaac": "0.0.5",
     "node-uuid": "^1.4.7"
   },
