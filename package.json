@@ -61,7 +61,7 @@
     "sauce-connect-launcher": "^0.14.0",
     "saucelabs": "^1.0.1",
     "selenium-standalone": "^4.7.2",
-    "watchify": "^3.6.1",
+    "watchify": "^3.9.0",
     "wd": "^0.4.0"
   }
 }
