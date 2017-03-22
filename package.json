@@ -42,7 +42,7 @@
     "bcryptjs": "^2.3.0",
     "bluebird": "^3.0.5",
     "isaac": "0.0.5",
-    "node-uuid": "^1.4.7"
+    "node-uuid": "^1.4.8"
   },
   "devDependencies": {
     "beautify-proj": "0.0.4",
