@@ -45,7 +45,7 @@
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {
-    "beautify-proj": "0.0.4",
+    "beautify-proj": "1.0.0",
     "browserify": "^13.0.0",
     "browserify-istanbul": "^0.2.1",
     "chai": "^3.4.1",
